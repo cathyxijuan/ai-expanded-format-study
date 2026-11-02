@@ -2,7 +2,7 @@
 
 ## Overview
 
-This dataset is from the study "AI Item Generation for the Big Five Personality Traits", which evaluates how large language models generate psychological items in the Expanded format. Participants were randomly assigned to one of four conditions measuring the Big Five Inventory (BFI). All other measures were administered to all participants, although not every participant answered every item (see [Data quality](#data-quality)).
+This dataset is from the study "AI Item Generation for the Big Five Personality Traits", which evaluates how large language models generate psychological items in the Expanded format. Participants were randomly assigned to one of four conditions measuring the Big Five Inventory (BFI). All other measures were administered to all participants, although not every participant answered every item.
 
 ## Files
 
@@ -40,34 +40,6 @@ The cleaned data were produced from the raw survey export (1,301 rows × 398 col
 | `Think_ZS` | 298 |
 | `Think_FS` | 293 |
 | **Total** | **1,212** |
-
-### Data quality
-
-The data have not been screened, so analysts should apply their own exclusion rules.
-
-**Missing data.** Skipped numeric items are coded `NA`; empty text fields are blank. 598 of the 1,212 participants answered every item, excluding the conditional `_specify` fields. Participants with at least one missing item, by measure:
-
-| Measure | Participants with missing items |
-|---------|---------------------------------|
-| BFI (`BFI_1`–`BFI_60`) | 73 |
-| SD3 (`dark_`) | 239 |
-| Psychopathology (`psychopathology_`) | 112 |
-| NPAS (`nerd_`) | 178 |
-| NIS (`nonverbal_`) | 213 |
-| Mini-Markers (`BFI_mini_`) | 279 |
-
-**Implausible values.** Open-ended numeric items were not range-checked and include the following:
-
-| Variable | Values to review |
-|----------|------------------|
-| `age` | 14 values below 18; maximum values of 89 and 99 |
-| `BRF_GPA` | 1 negative value; 4 values above 100 (maximum 6,687,873) |
-| `BRF_dating_partners` | 12 negative values; maximum 1,000 |
-| `BRF_party_count` | 1 negative value; maximum 4,567 |
-| `volunteerism` | 6 negative values; 1 value above 365 (10,005 days per year) |
-| `cultural_event` | 2 negative values; maximum 1,111,221 |
-
-**Free-text fields.** `home_language` and `country_of_birth` are as typed by participants, with inconsistent spelling and capitalization (e.g., `English` and `english`). 69 `home_language` entries and 1 `country_of_birth` entry are numbers only. Values in the `_specify` columns begin with the selected option in square brackets (e.g., `[No] 3`).
 
 ---
 
