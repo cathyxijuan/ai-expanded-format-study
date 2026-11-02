@@ -2,36 +2,36 @@
 
 ## Overview
 
-This dataset is from an experimental study on AI-expanded format research. Participants were randomly assigned to one of four conditions measuring the Big Five Inventory (BFI). All other measures were completed by all participants.
+This dataset is from the study "AI Item Generation for the Big Five Personality Traits", which evaluates how large language models generate psychological items in the Expanded format. Participants were randomly assigned to one of four conditions measuring the Big Five Inventory (BFI). All other measures were administered to all participants, although not every participant answered every item (see [Data quality](#data-quality)).
 
 ## Files
 
 | File | Description |
 |------|-------------|
-| `cleaned data.csv` | Analysis-ready dataset (1,212 participants × 216 variables). One row per participant. |
+| `cleaned data.csv` | Cleaned dataset (1,212 participants × 216 variables). One row per participant. |
 | `survey.pdf` | Full survey, including the condition-specific BFI response options. |
 
 The raw survey exports, the cleaning script, and participants' written responses are not included in this repository.
 
 ## Cleaning steps
 
-The cleaned data were produced from the raw survey export as follows:
+The cleaned data were produced from the raw survey export (1,301 rows × 398 columns) as follows:
 
-1. **Drop empty rows.** Rows where every column is missing are removed (81 rows in the current export).
+1. **Drop empty rows.** Rows where every column is missing are removed (81 rows).
 2. **Drop the stray column** `X0...Q9`.
 3. **Name the BFI blocks.** The first 240 columns are the four condition-specific BFI blocks (60 items each), renamed `BFI_Instant_ZS1–60`, `BFI_Instant_FS1–60`, `BFI_Think_ZS1–60`, `BFI_Think_FS1–60`.
 4. **Collapse the BFI blocks.** The data are pivoted long and back to wide (regex `BFI_(.+?)(\d+)$` splits each name into condition and item number), keeping only non-missing responses. This yields the 60 shared columns `BFI_1`–`BFI_60` plus a `condition` column.
 5. **Rename the remaining columns by position** to the variable names listed in the codebook below.
-6. **Remove the two written-response variables** from the public dataset.
-7. **Write** `cleaned data.csv`.
+6. **Write** `cleaned data.csv`.
 
 ### Notes and caveats
 
-- **Participants with no BFI responses are dropped.** Step 4 removes any participant who answered no BFI item in any condition (8 non-empty rows in the current export), even if they completed the other measures. 1,301 raw rows − 81 empty − 8 without BFI = 1,212 cleaned rows.
+- **Participants with no BFI responses are dropped.** Step 4 removes any participant who answered no BFI item in any condition (8 non-empty rows), even if they completed the other measures. 1,301 raw rows − 81 empty − 8 without BFI = 1,212 cleaned rows.
 - **No scoring, reverse-keying, or exclusions** (e.g., attention checks, completion time) are applied; values are as exported.
-- Each participant answered exactly one BFI condition in the current export (no overlapping blocks).
+- Each participant answered exactly one BFI condition (no overlapping blocks).
+- **Written responses are excluded.** The two open-ended variables were removed from this public version of the dataset.
 
-### Condition counts (current cleaned data)
+### Condition counts
 
 | Condition | n |
 |-----------|---|
@@ -40,6 +40,34 @@ The cleaned data were produced from the raw survey export as follows:
 | `Think_ZS` | 298 |
 | `Think_FS` | 293 |
 | **Total** | **1,212** |
+
+### Data quality
+
+The data have not been screened, so analysts should apply their own exclusion rules.
+
+**Missing data.** Skipped numeric items are coded `NA`; empty text fields are blank. 598 of the 1,212 participants answered every item, excluding the conditional `_specify` fields. Participants with at least one missing item, by measure:
+
+| Measure | Participants with missing items |
+|---------|---------------------------------|
+| BFI (`BFI_1`–`BFI_60`) | 73 |
+| SD3 (`dark_`) | 239 |
+| Psychopathology (`psychopathology_`) | 112 |
+| NPAS (`nerd_`) | 178 |
+| NIS (`nonverbal_`) | 213 |
+| Mini-Markers (`BFI_mini_`) | 279 |
+
+**Implausible values.** Open-ended numeric items were not range-checked and include the following:
+
+| Variable | Values to review |
+|----------|------------------|
+| `age` | 14 values below 18; maximum values of 89 and 99 |
+| `BRF_GPA` | 1 negative value; 4 values above 100 (maximum 6,687,873) |
+| `BRF_dating_partners` | 12 negative values; maximum 1,000 |
+| `BRF_party_count` | 1 negative value; maximum 4,567 |
+| `volunteerism` | 6 negative values; 1 value above 365 (10,005 days per year) |
+| `cultural_event` | 2 negative values; maximum 1,111,221 |
+
+**Free-text fields.** `home_language` and `country_of_birth` are as typed by participants, with inconsistent spelling and capitalization (e.g., `English` and `english`). 69 `home_language` entries and 1 `country_of_birth` entry are numbers only. Values in the `_specify` columns begin with the selected option in square brackets (e.g., `[No] 3`).
 
 ---
 
@@ -358,7 +386,7 @@ Both items use open-ended numeric entry (no Likert scale); responses are raw cou
 ---
 
 **`born_in_canada`** — Born in Canada  
-**`born_in_canada_specify`** — Free-text country of birth if "No" selected
+**`born_in_canada_specify`** — If "No" selected: "How long have you lived in Canada? (Years)". Free text, so most entries are numbers but some are not (e.g., `8 months`, `over 10 years`, `Afghanistan`)
 | Value | Label |
 |-------|-------|
 | 1 | Yes |
@@ -439,4 +467,4 @@ Both items use open-ended numeric entry (no Likert scale); responses are raw cou
 
 ### Written Responses
 
-The survey also included two open-ended items: imagined life 10 years from now and personal core values and qualities (min. 20 words each). These responses are not included in the public dataset.
+The survey also included two open-ended items (min. 20 words each): imagined life 10 years from now, and personal core values and qualities. These responses are not included in this dataset.
