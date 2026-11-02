@@ -9,7 +9,7 @@ This dataset is from the study "AI Item Generation for the Big Five Personality 
 | File | Description |
 |------|-------------|
 | `cleaned data.csv` | Cleaned dataset (1,212 participants × 216 variables). One row per participant. |
-| `survey.pdf` | Full survey, including the condition-specific BFI response options. |
+| `survey.rtf` | Full survey, including the condition-specific BFI response options. |
 
 The raw survey exports, the cleaning script, and participants' written responses are not included in this repository.
 
@@ -94,7 +94,7 @@ The `condition` variable identifies which condition each participant was assigne
 | `BFI_1`–`BFI_60` | BFI items (60 items), condition-collapsed |
 | `condition` | Experimental condition (`Instant_ZS`, `Instant_FS`, `Think_ZS`, `Think_FS`) |
 
-**Response scale.** The BFI was administered in the *Expanded format*: each item presents five item-specific response statements (rather than a single shared Likert anchor set such as "Strongly Disagree – Strongly Agree"). The exact wording of the five options is unique to each item and varies by condition (`Instant_ZS`, `Instant_FS`, `Think_ZS`, `Think_FS`). The numeric values `1`–`5` in the dataset correspond to the five response options as they were presented to the participant, in the order they appeared in `survey.pdf` (where `1` = the first option shown and `5` = the fifth option shown). Please consult `survey.pdf` for the full set of response option statements for each item under each condition.
+**Response scale.** The BFI was administered in the *Expanded format*: each item presents five item-specific response statements (rather than a single shared Likert anchor set such as "Strongly Disagree – Strongly Agree"). The exact wording of the five options is unique to each item and varies by condition (`Instant_ZS`, `Instant_FS`, `Think_ZS`, `Think_FS`). The numeric values `1`–`5` in the dataset correspond to the five response options as they were presented to the participant, in the order they appeared in `survey.rtf` (where `1` = the first option shown and `5` = the fifth option shown). Please consult `survey.rtf` for the full set of response option statements for each item under each condition.
 
 ### Short Dark Triad (SD3)
 
